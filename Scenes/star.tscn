@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cn6dow7klxnvt"]
+
+[ext_resource type="Texture2D" uid="uid://btcehmvgc6bxv" path="res://Assets/Circle.svg" id="1_d0spr"]
+[ext_resource type="Script" uid="uid://c4rnjvg86f5e6" path="res://Scripts/star.gd" id="2_3vu41"]
+
+[node name="Star" type="Sprite2D" unique_id=1361287136]
+z_index = 1
+texture = ExtResource("1_d0spr")
+script = ExtResource("2_3vu41")

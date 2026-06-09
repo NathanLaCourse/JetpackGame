@@ -1,0 +1,266 @@
+[gd_scene format=3 uid="uid://c3kan8tmodv6b"]
+
+[ext_resource type="Texture2D" uid="uid://btcehmvgc6bxv" path="res://Assets/Circle.svg" id="1_fyqef"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyqef"]
+bg_color = Color(1, 0.5647059, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jxero"]
+bg_color = Color(1, 0.31764707, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="Animation" id="Animation_jxero"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qdvrb"]
+resource_name = "blowup"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(16, 16), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nf4gj"]
+_data = {
+&"RESET": SubResource("Animation_jxero"),
+&"blowup": SubResource("Animation_qdvrb")
+}
+
+[node name="UI" type="Control" unique_id=614603781]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 576.0
+offset_top = 324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnergyPie" type="Control" parent="." unique_id=1006383831]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Chemical" type="TextureProgressBar" parent="EnergyPie" unique_id=131793903]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 1.0
+fill_mode = 4
+texture_progress = ExtResource("1_fyqef")
+tint_progress = Color(1, 1, 0, 1)
+
+[node name="Thermal" type="TextureProgressBar" parent="EnergyPie" unique_id=707694435]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 0.8
+fill_mode = 4
+texture_progress = ExtResource("1_fyqef")
+tint_progress = Color(1, 0.31764707, 0, 1)
+
+[node name="Kinetic" type="TextureProgressBar" parent="EnergyPie" unique_id=1879815122]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 0.6
+fill_mode = 4
+texture_progress = ExtResource("1_fyqef")
+tint_progress = Color(0, 1, 1, 1)
+
+[node name="Gravitational" type="TextureProgressBar" parent="EnergyPie" unique_id=2060727283]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 0.4
+fill_mode = 4
+texture_progress = ExtResource("1_fyqef")
+tint_progress = Color(0.81379074, 0.30678278, 1, 1)
+
+[node name="Elastic" type="TextureProgressBar" parent="EnergyPie" unique_id=629441234]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 0.2
+fill_mode = 4
+texture_progress = ExtResource("1_fyqef")
+tint_progress = Color(2.5990605e-06, 0.693485, 0.48331052, 1)
+
+[node name="JetpackEnergy" type="ProgressBar" parent="EnergyPie" unique_id=1807750587]
+layout_mode = 0
+offset_left = -500.0
+offset_top = 100.0
+offset_right = -350.0
+offset_bottom = 130.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_fyqef")
+max_value = 1.0
+step = 0.001
+value = 0.5
+show_percentage = false
+
+[node name="ThermalLimit" type="ProgressBar" parent="EnergyPie" unique_id=9927406]
+layout_mode = 0
+offset_left = -440.0
+offset_top = -250.0
+offset_right = -410.0
+offset_bottom = -100.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_jxero")
+max_value = 1.0
+step = 0.001
+value = 0.5
+fill_mode = 3
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="EnergyPie/ThermalLimit" unique_id=819807084]
+modulate = Color(1, 0.31764707, 0, 1)
+position = Vector2(15, 75)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1_fyqef")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnergyPie/ThermalLimit" unique_id=1079386639]
+libraries/ = SubResource("AnimationLibrary_nf4gj")
+
+[node name="Label" type="Label" parent="." unique_id=1005730967]
+layout_mode = 0
+offset_left = -440.0
+offset_top = 151.0
+offset_right = -400.0
+offset_bottom = 174.0
+text = "a"
+
+[node name="Shop" type="VBoxContainer" parent="." unique_id=311575132]
+layout_mode = 0
+offset_left = 300.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+theme_override_constants/separation = 50
+
+[node name="Panel" type="Panel" parent="Shop" unique_id=328754756]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Shop/Panel" unique_id=947313127]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "+5 Max Fuel"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Shop/Panel" unique_id=1212990191]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 96.0
+text = "Purchase - $50"
+
+[node name="Panel2" type="Panel" parent="Shop" unique_id=1757314543]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Shop/Panel2" unique_id=968499680]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "+2 Acceleration"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Shop/Panel2" unique_id=365283456]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 96.0
+text = "Purchase - $50"
+
+[node name="Panel3" type="Panel" parent="Shop" unique_id=1426015296]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Shop/Panel3" unique_id=1871070751]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "+1 Spring Strength"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Shop/Panel3" unique_id=554840032]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 96.0
+text = "Purchase - $50"
+
+[node name="Panel4" type="Panel" parent="Shop" unique_id=723790383]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Shop/Panel4" unique_id=1136051477]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "+50 Thermal Limit"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Shop/Panel4" unique_id=449523561]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 96.0
+text = "Purchase - $50"

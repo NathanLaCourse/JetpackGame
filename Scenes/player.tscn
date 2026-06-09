@@ -1,0 +1,386 @@
+[gd_scene format=3 uid="uid://ce0cfd4bkyxes"]
+
+[ext_resource type="Texture2D" uid="uid://bmcwnek6syan8" path="res://Assets/icon.svg" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://btnpqxovdkwa1" path="res://Scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://btcehmvgc6bxv" path="res://Assets/Circle.svg" id="3_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://blsji722odqdf" path="res://Sounds/Upgrade1.mp3" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://1cav2i85iejs" path="res://Sounds/Jetpack.mp3" id="5_fkybt"]
+
+[sub_resource type="Gradient" id="Gradient_fkybt"]
+offsets = PackedFloat32Array(0, 0.53319204, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0.9372549, 1, 0, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
+size = Vector2(40, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3smsa"]
+bg_color = Color(0.6, 0.6, 0.6, 0.39215687)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgqql"]
+bg_color = Color(1, 0.5647059, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3wgy"]
+bg_color = Color(0.6, 0.6, 0.6, 0.39215687)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkybt"]
+bg_color = Color(1, 0.31764707, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="Animation" id="Animation_x3wgy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../../..:goToBase")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_3smsa"]
+resource_name = "blowup"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(16, 16), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../../..:goToBase")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8erm5"]
+_data = {
+&"RESET": SubResource("Animation_x3wgy"),
+&"blowup": SubResource("Animation_3smsa")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_6t5aa"]
+font_size = 48
+font_color = Color(1, 1, 0, 1)
+outline_size = 16
+outline_color = Color(1, 0.78039217, 0, 1)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1445130518 node_paths=PackedStringArray("UI", "springRaycast")]
+collision_layer = 2
+script = ExtResource("1_onrkg")
+UI = NodePath("Camera2D/UI")
+springRaycast = NodePath("springRaycast")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=608661387]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_4flbx")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Sprite2D" unique_id=1408332919]
+z_index = -1
+emitting = false
+amount = 64
+texture = ExtResource("3_6t5aa")
+lifetime = 3.0
+direction = Vector2(0, 1)
+spread = 180.0
+gravity = Vector2(0, 98)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+color_ramp = SubResource("Gradient_fkybt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=592779101]
+shape = SubResource("RectangleShape2D_onrkg")
+
+[node name="floorArea" type="Area2D" parent="." unique_id=449403654]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floorArea" unique_id=1176240340]
+position = Vector2(0, 20)
+shape = SubResource("RectangleShape2D_6t5aa")
+
+[node name="springRaycast" type="RayCast2D" parent="." unique_id=1820787820]
+
+[node name="ColorRect" type="ColorRect" parent="springRaycast" unique_id=1389351185]
+z_index = -1
+offset_left = -5.0
+offset_right = 5.0
+offset_bottom = 50.0
+color = Color(0, 0.69411767, 0.48235294, 1)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=427252580]
+
+[node name="UI" type="Control" parent="Camera2D" unique_id=597294221]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EnergyPie" type="Control" parent="Camera2D/UI" unique_id=1964710599]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Chemical" type="TextureProgressBar" parent="Camera2D/UI/EnergyPie" unique_id=1228012859]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 1.0
+fill_mode = 4
+texture_progress = ExtResource("3_6t5aa")
+tint_progress = Color(1, 1, 0, 1)
+
+[node name="Thermal" type="TextureProgressBar" parent="Camera2D/UI/EnergyPie" unique_id=301991782]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 0.8
+fill_mode = 4
+texture_progress = ExtResource("3_6t5aa")
+tint_progress = Color(1, 0.31764707, 0, 1)
+
+[node name="Kinetic" type="TextureProgressBar" parent="Camera2D/UI/EnergyPie" unique_id=658462036]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 0.6
+fill_mode = 4
+texture_progress = ExtResource("3_6t5aa")
+tint_progress = Color(0, 1, 1, 1)
+
+[node name="Gravitational" type="TextureProgressBar" parent="Camera2D/UI/EnergyPie" unique_id=1159400941]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 0.4
+fill_mode = 4
+texture_progress = ExtResource("3_6t5aa")
+tint_progress = Color(0.81379074, 0.30678278, 1, 1)
+
+[node name="Elastic" type="TextureProgressBar" parent="Camera2D/UI/EnergyPie" unique_id=1373028690]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -74.0
+offset_right = -352.0
+offset_bottom = 74.0
+max_value = 1.0
+step = 0.001
+value = 0.2
+fill_mode = 4
+texture_progress = ExtResource("3_6t5aa")
+tint_progress = Color(2.5990605e-06, 0.693485, 0.48331052, 1)
+
+[node name="JetpackEnergy" type="ProgressBar" parent="Camera2D/UI/EnergyPie" unique_id=1577683427]
+layout_mode = 0
+offset_left = -500.0
+offset_top = 100.0
+offset_right = -350.0
+offset_bottom = 130.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3smsa")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vgqql")
+max_value = 1.0
+step = 0.001
+value = 0.5
+show_percentage = false
+
+[node name="ThermalLimit" type="ProgressBar" parent="Camera2D/UI/EnergyPie" unique_id=662031871]
+layout_mode = 0
+offset_left = -440.0
+offset_top = -250.0
+offset_right = -410.0
+offset_bottom = -100.0
+theme_override_styles/background = SubResource("StyleBoxFlat_x3wgy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fkybt")
+max_value = 1.0
+step = 0.001
+value = 0.5
+fill_mode = 3
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/UI/EnergyPie/ThermalLimit" unique_id=1012885957]
+modulate = Color(1, 0.31764707, 0, 1)
+position = Vector2(15, 75)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("3_6t5aa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/UI/EnergyPie/ThermalLimit" unique_id=1377843839]
+libraries/ = SubResource("AnimationLibrary_8erm5")
+
+[node name="CoinsLabel" type="Label" parent="Camera2D/UI" unique_id=78441518]
+layout_mode = 0
+offset_left = -500.0
+offset_top = 180.0
+offset_right = -350.0
+offset_bottom = 247.0
+text = "a"
+label_settings = SubResource("LabelSettings_6t5aa")
+horizontal_alignment = 1
+
+[node name="Shop" type="VBoxContainer" parent="Camera2D/UI" unique_id=268450113]
+layout_mode = 0
+offset_left = 300.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+theme_override_constants/separation = 50
+
+[node name="Panel" type="Panel" parent="Camera2D/UI/Shop" unique_id=1159483725]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Camera2D/UI/Shop/Panel" unique_id=516028833]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "+2 Max Fuel"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Camera2D/UI/Shop/Panel" unique_id=1193194384]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 96.0
+text = "Purchase - $0"
+
+[node name="Panel2" type="Panel" parent="Camera2D/UI/Shop" unique_id=208789310]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Camera2D/UI/Shop/Panel2" unique_id=1126566162]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "+2 Acceleration"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Camera2D/UI/Shop/Panel2" unique_id=593737374]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 96.0
+text = "Purchase - $50"
+
+[node name="Panel3" type="Panel" parent="Camera2D/UI/Shop" unique_id=828185837]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Camera2D/UI/Shop/Panel3" unique_id=1602182298]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "+1,000 Spring Strength"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Camera2D/UI/Shop/Panel3" unique_id=1132215095]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 96.0
+text = "Purchase - $50"
+
+[node name="Panel4" type="Panel" parent="Camera2D/UI/Shop" unique_id=1971729778]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Camera2D/UI/Shop/Panel4" unique_id=459332334]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 48.0
+text = "+50 Thermal Limit"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Camera2D/UI/Shop/Panel4" unique_id=1107311259]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 96.0
+text = "Purchase - $50"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Camera2D/UI/Shop" unique_id=221537149]
+stream = ExtResource("4_vgqql")
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/UI" unique_id=1932735305]
+self_modulate = Color(0.47, 0.47, 0.47, 0.5882353)
+position = Vector2(-731, 30)
+scale = Vector2(0.714, 0.714)
+texture = ExtResource("3_6t5aa")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Camera2D/UI/Sprite2D" unique_id=1495793260]
+self_modulate = Color(0.7424793, 0.74247926, 0.7424792, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_6t5aa")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1238791010]
+stream = ExtResource("5_fkybt")
+autoplay = true
